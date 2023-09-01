@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^5.1.0
   json_annotation: ^4.8.1
   json_serializable: ^6.7.1
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -29,5 +30,23 @@ flutter:
   fonts:
       - family: Gilroy
         fonts:
-          - asset: fonts/
+        - asset: fonts/SF-Pro-Display-Black.otf
+        - asset: fonts/SF-Pro-Display-BlackItalic.otf
+        - asset: fonts/SF-Pro-Display-Bold.otf
+        - asset: fonts/SF-Pro-Display-BoldItalic.otf
+        - asset: fonts/SF-Pro-Display-Heavy.otf
+        - asset: fonts/SF-Pro-Display-HeavyItalic.otf
+        - asset: fonts/SF-Pro-Display-Light.otf
+        - asset: fonts/SF-Pro-Display-LightItalic.otf
+        - asset: fonts/SF-Pro-Display-Medium.otf
+        - asset: fonts/SF-Pro-Display-MediumItalic.otf
+        - asset: fonts/SF-Pro-Display-Regular.otf
+        - asset: fonts/SF-Pro-Display-RegularItalic.otf
+        - asset: fonts/SF-Pro-Display-Semibold.otf
+        - asset: fonts/SF-Pro-Display-SemiboldItalic.otf
+        - asset: fonts/SF-Pro-Display-Thin.otf
+        - asset: fonts/SF-Pro-Display-ThinItalic.otf
+        - asset: fonts/SF-Pro-Display-Ultralight.otf
+        - asset: fonts/SF-Pro-Display-UltralightItalic.otf
+
   uses-material-design: true
