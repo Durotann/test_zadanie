@@ -11,14 +11,6 @@ class HomeScreenLoadInf extends HomeScreenState {
   final Data data;
 }
 
-class HomeScreenTest extends HomeScreenState {
-  HomeScreenTest({
-    required this.launchurl,
-  });
-
-  final Uri launchurl;
-}
-
 class HomeScreenLoading extends HomeScreenState {}
 
 class HomeScreenLoadingFailed extends HomeScreenState {}

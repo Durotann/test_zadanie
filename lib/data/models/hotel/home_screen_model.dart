@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'about_hotel_model.dart';
+import '../about_hotel/about_hotel_model.dart';
 part 'home_screen_model.g.dart';
 
 @JsonSerializable()

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:test_zadanie/data/repositories/repository.dart';
+import 'package:test_zadanie/view/nomerscreen/Presentation/nomer_screen.dart';
 
 import '../bloc/home_screen_bloc.dart';
 
@@ -14,12 +16,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _homescreenbloc = HomeScreenBloc();
   final CarouselController carouselController = CarouselController();
   int activeIndex = 0;
   @override
   void initState() {
-    _homescreenbloc.add(HomeScreenLoad());
+    context.read<HomeScreenBloc>().add(HomeScreenLoad());
+
     super.initState();
   }
 
@@ -27,11 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<HomeScreenBloc, HomeScreenState>(
-        bloc: _homescreenbloc,
         builder: (context, state) {
           if (state is HomeScreenLoading) {
             return Container(
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );
@@ -39,29 +40,33 @@ class _HomeScreenState extends State<HomeScreen> {
           if (state is HomeScreenLoadInf) {
             return Scaffold(
               backgroundColor: Colors.white10,
-              appBar: AppBar(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  title: Text(
-                    "Отель",
-                    style: const TextStyle(
-                      fontFamily: "SF Pro Display",
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff000000),
-                      height: 22 / 18,
-                    ),
-                    textAlign: TextAlign.center,
-                  )),
               body: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Text(
+                      "Отель",
+                      style: TextStyle(
+                        fontFamily: "SF Pro Display",
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff000000),
+                        height: 22 / 18,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 11,
+                    ),
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10)),
                         boxShadow: [
@@ -69,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.grey.withOpacity(0.1),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3),
+                            offset: const Offset(0, 3),
                           ),
                         ],
                       ),
@@ -95,15 +100,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: state.data.image_urls.length,
                                 itemBuilder: (context, index, realIndex) {
                                   return Container(
-                                    width: 343,
+                                    width: 400,
                                     height: 257,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(10),
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: Image.network(
-                                                    '${state.data.image_urls[index]}')
-                                                .image)),
+                                              '${state.data.image_urls[index]}',
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                return const CircularProgressIndicator();
+                                              },
+                                            ).image)),
                                   );
                                 },
                               ),
@@ -127,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Container(
                                           width: 10.0,
                                           height: 10.0,
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               vertical: 8.0, horizontal: 4.0),
                                           decoration: BoxDecoration(
                                               shape: BoxShape.circle,
@@ -147,21 +156,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               )
                             ]),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             Container(
                               width: 149,
                               height: 29,
                               decoration: BoxDecoration(
-                                  color: Color.fromRGBO(255, 199, 0, 0.20),
+                                  color:
+                                      const Color.fromRGBO(255, 199, 0, 0.20),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 10.0, right: 10),
                                 child: Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.star,
                                       color: Color.fromRGBO(255, 168, 0, 1),
                                       size: 14,
@@ -180,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
@@ -194,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               textAlign: TextAlign.left,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
                             Text(
@@ -207,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               textAlign: TextAlign.left,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             Padding(
@@ -227,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     textAlign: TextAlign.left,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Padding(
@@ -251,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 8,
                     ),
                     Container(
@@ -259,7 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 528,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
                         boxShadow: [
@@ -267,7 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.grey.withOpacity(0.1),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -277,9 +288,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Об отеле",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: "SF Pro Display",
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500,
@@ -288,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               textAlign: TextAlign.left,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             Row(
@@ -304,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10.0, vertical: 5.0),
                                     child: Text(
-                                      "3-я линия",
+                                      "${state.data.abouthotel.peculiarities[0]}",
                                       style: const TextStyle(
                                         fontFamily: "SF Pro Display",
                                         fontSize: 13,
@@ -315,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 18,
                                 ),
                                 Container(
@@ -329,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0, vertical: 5.0),
                                       child: Text(
-                                        "Платный Wi-Fi в фойе",
+                                        "${state.data.abouthotel.peculiarities[1]}",
                                         style: const TextStyle(
                                           fontFamily: "SF Pro Display",
                                           fontSize: 13,
@@ -341,7 +352,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 18,
                             ),
                             Row(
@@ -357,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0, vertical: 5.0),
                                       child: Text(
-                                        "30 км до аэропорта",
+                                        "${state.data.abouthotel.peculiarities[2]}",
                                         style: const TextStyle(
                                           fontFamily: "SF Pro Display",
                                           fontSize: 13,
@@ -367,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         textAlign: TextAlign.center,
                                       )),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 18,
                                 ),
                                 Container(
@@ -381,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10.0, vertical: 5.0),
                                         child: Text(
-                                          "1 км до пляжа",
+                                          "${state.data.abouthotel.peculiarities[3]}",
                                           style: const TextStyle(
                                             fontFamily: "SF Pro Display",
                                             fontSize: 13,
@@ -392,7 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ))),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 17,
                             ),
                             Text(
@@ -405,7 +416,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               textAlign: TextAlign.left,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             Container(
@@ -431,16 +442,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: Colors.black,
                                                 scale: 4,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 12,
                                               ),
-                                              Column(
+                                              const Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     "Удобства",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 16,
@@ -453,7 +464,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   Text(
                                                     "Самое необходимое",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 14,
@@ -468,7 +479,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ],
                                           ),
-                                          Icon(Icons.keyboard_arrow_right)
+                                          const Icon(Icons.keyboard_arrow_right)
                                         ],
                                       ),
                                     ),
@@ -476,7 +487,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(
                                         left: 60.0, right: 10.0),
-                                    child: Divider(
+                                    child: const Divider(
                                       indent: 1,
                                       color: Colors.grey,
                                       height: 30,
@@ -498,16 +509,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "images/tick-square.png",
                                                 scale: 4,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 12,
                                               ),
-                                              Column(
+                                              const Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     "Удобства",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 16,
@@ -520,7 +531,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   Text(
                                                     "Самое необходимое",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 14,
@@ -535,7 +546,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ],
                                           ),
-                                          Icon(Icons.keyboard_arrow_right)
+                                          const Icon(Icons.keyboard_arrow_right)
                                         ],
                                       ),
                                     ),
@@ -543,7 +554,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(
                                         left: 60.0, right: 10.0),
-                                    child: Divider(
+                                    child: const Divider(
                                       indent: 1,
                                       color: Colors.grey,
                                       height: 30,
@@ -565,16 +576,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "images/close-square.png",
                                                 scale: 4,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 12,
                                               ),
-                                              Column(
+                                              const Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     "Удобства",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 16,
@@ -587,7 +598,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                   Text(
                                                     "Самое необходимое",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           "SF Pro Display",
                                                       fontSize: 14,
@@ -602,7 +613,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ],
                                           ),
-                                          Icon(Icons.keyboard_arrow_right)
+                                          const Icon(Icons.keyboard_arrow_right)
                                         ],
                                       ),
                                     ),
@@ -610,7 +621,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                     margin: const EdgeInsets.only(
                                         left: 60.0, right: 10.0),
-                                    child: Divider(
+                                    child: const Divider(
                                       indent: 1,
                                       color: Colors.grey,
                                       height: 30,
@@ -623,41 +634,44 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: Container(
-                        width: 375,
-                        height: 88,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
-                            child: Container(
-                              width: 343,
-                              height: 48,
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                  ))),
-                                  onPressed: () {},
-                                  child: Text(
-                                    "К выбору номера",
-                                    style: const TextStyle(
-                                      fontFamily: "SF Pro Display",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff010100),
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  )),
-                            ),
+                    Container(
+                      width: double.infinity,
+                      height: 88,
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 30.0),
+                          child: Container(
+                            width: 343,
+                            height: 48,
+                            child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Color.fromRGBO(13, 114, 255, 1)),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                    ))),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const NomerScreen()));
+                                },
+                                child: const Text(
+                                  "К выбору номера",
+                                  style: TextStyle(
+                                    fontFamily: "SF Pro Display",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                )),
                           ),
                         ),
                       ),
@@ -669,7 +683,9 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           ;
-          return CircularProgressIndicator();
+          return Scaffold(
+              body:
+                  Container(child: Center(child: CircularProgressIndicator())));
         },
       ),
     );
