@@ -1,9 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:test_zadanie/data/repositories/repository.dart';
 import 'package:test_zadanie/view/nomerscreen/Presentation/nomer_screen.dart';
 
 import '../bloc/home_screen_bloc.dart';
@@ -131,8 +128,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .entries
                                         .map((entry) {
                                       return GestureDetector(
-                                        onTap: () => carouselController
-                                            .animateToPage(entry.key),
+                                        onTap: () =>
+                                            carouselController.animateTo(12,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                curve: Curves.linear),
                                         child: Container(
                                           width: 10.0,
                                           height: 10.0,

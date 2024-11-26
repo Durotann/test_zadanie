@@ -137,7 +137,12 @@ class _NomerScreenState extends State<NomerScreen> {
                                                 .map((entry) {
                                               return GestureDetector(
                                                 onTap: () => carouselController
-                                                    .animateToPage(entry.key),
+                                                    .animateTo(12,
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    300),
+                                                        curve: Curves.linear),
                                                 child: Container(
                                                   width: 10.0,
                                                   height: 10.0,
